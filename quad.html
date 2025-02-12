@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Ecuación Cuadrática</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .precision {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .precision input {
+            width: 50px;
+            padding: 5px;
+            margin-left: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Calculadora de Ecuación Cuadrática</h2>
+    <label for="a">Coeficiente \( a \):</label>
+    <input type="number" id="a" placeholder="Ingrese el valor de a">
+
+    <label for="b">Coeficiente \( b \):</label>
+    <input type="number" id="b" placeholder="Ingrese el valor de b">
+
+    <label for="c">Coeficiente \( c \):</label>
+    <input type="number" id="c" placeholder="Ingrese el valor de c">
+
+    <div class="precision">
+        <label for="precision">Precisión (decimales):</label>
+        <input type="number" id="precision" value="2" min="0" max="10">
+    </div>
+
+    <button onclick="calcularRaices()">Calcular Raíces</button>
+
+    <div class="result" id="resultado"></div>
+</div>
+
+<script>
+    function calcularRaices() {
+        const a = parseFloat(document.getElementById('a').value);
+        const b = parseFloat(document.getElementById('b').value);
+        const c = parseFloat(document.getElementById('c').value);
+        const precision = parseInt(document.getElementById('precision').value);
+
+        if (isNaN(a) || isNaN(b) || isNaN(c) || isNaN(precision)) {
+            document.getElementById('resultado').innerText = "Por favor, ingrese valores válidos.";
+            return;
+        }
+
+        const d = b * b - 4 * a * c;
+        let mensaje = `Discriminante (d): ${d.toFixed(precision)}<br>`;
+
+        if (d < 0) {
+            mensaje += "No hay raíces reales.";
+        } else if (d === 0) {
+            const x = -b / (2 * a);
+            mensaje += `La raíz es única e igual a: ${x.toFixed(precision)}`;
+        } else {
+            const x1 = (-b + Math.sqrt(d)) / (2 * a);
+            const x2 = (-b - Math.sqrt(d)) / (2 * a);
+            mensaje += `Las raíces son: ${x1.toFixed(precision)} y ${x2.toFixed(precision)}`;
+        }
+
+        document.getElementById('resultado').innerHTML = mensaje;
+    }
+</script>
+
+</body>
+</html>
